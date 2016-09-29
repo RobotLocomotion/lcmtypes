@@ -63,15 +63,15 @@ lcm_wrap_types(
   bot_core_viewer_load_robot_t.lcm
 )
 
-add_library(lcmtypes_bot2-core ${sources})
-target_link_libraries(lcmtypes_bot2-core lcm)
+add_library(robotlocomotion-lcmtypes ${sources})
+target_link_libraries(robotlocomotion-lcmtypes lcm)
 
 install(FILES ${c_install_headers} DESTINATION include/lcmtypes)
 install(FILES ${cpp_install_headers} DESTINATION include/lcmtypes/bot_core)
 
-add_library(lcmtypes_bot2-core-cpp INTERFACE)
+add_library(robotlocomotion-lcmtypes-cpp INTERFACE)
 
-install(TARGETS lcmtypes_bot2-core lcmtypes_bot2-core-cpp
+install(TARGETS robotlocomotion-lcmtypes robotlocomotion-lcmtypes-cpp
   EXPORT ${PROJECT_NAME}Targets
   RUNTIME DESTINATION bin
   LIBRARY DESTINATION lib${LIB_SUFFIX}
@@ -86,25 +86,25 @@ endif()
 if(JAVA_FOUND)
   include(UseJava)
 
-  add_jar(lcmtypes_bot2-core-jar
-    OUTPUT_NAME lcmtypes_bot2-core
+  add_jar(robotlocomotion-lcmtypes-jar
+    OUTPUT_NAME robotlocomotion-lcmtypes
     INCLUDE_JARS lcm-java
     SOURCES ${java_sources}
   )
 
-  install_jar(lcmtypes_bot2-core-jar share/java)
+  install_jar(robotlocomotion-lcmtypes-jar share/java)
 
-  set(BOT2-CORE_INCLUDE_JAVA
-    "include(\${CMAKE_CURRENT_LIST_DIR}/bot2-coreJavaTargets.cmake)"
+  set(ROBOTLOCOMOTION-LCMTYPES_INCLUDE_JAVA
+    "include(\${CMAKE_CURRENT_LIST_DIR}/${PROJECT_NAME}JavaTargets.cmake)"
   )
   export_jars(
     FILE ${PROJECT_BINARY_DIR}/${PROJECT_NAME}JavaTargets.cmake
-    TARGETS lcmtypes_bot2-core-jar
+    TARGETS robotlocomotion-lcmtypes-jar
   )
   install_jar_exports(
     FILE ${PROJECT_NAME}JavaTargets.cmake
     DESTINATION ${CONFIG_INSTALL_DIR}
-    TARGETS lcmtypes_bot2-core-jar
+    TARGETS robotlocomotion-lcmtypes-jar
   )
 endif()
 
@@ -116,7 +116,7 @@ configure_package_config_file(
 
 # Exported targets for build directory
 export(
-  TARGETS lcmtypes_bot2-core
+  TARGETS robotlocomotion-lcmtypes robotlocomotion-lcmtypes-cpp
   FILE ${PROJECT_BINARY_DIR}/${PROJECT_NAME}Targets.cmake
 )
 

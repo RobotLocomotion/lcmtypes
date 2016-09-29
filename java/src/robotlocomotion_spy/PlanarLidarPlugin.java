@@ -1,4 +1,4 @@
-package bot2_spy;
+package robotlocomotion_spy;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -12,7 +12,7 @@ import lcm.util.ParameterListener;
 import lcm.util.ColorMapper;
 import lcm.lcm.LCMDataInputStream;
 
-/** A plugin for viewing bot_core.planar_lidar_t data **/
+/** A plugin for viewing robotlocomotion.planar_lidar_t data **/
 public class PlanarLidarPlugin implements lcm.spy.SpyPlugin
 {
     boolean filledin = true;
@@ -22,7 +22,7 @@ public class PlanarLidarPlugin implements lcm.spy.SpyPlugin
 
     public boolean canHandle(long fingerprint)
     {
-        return fingerprint == bot_core.planar_lidar_t.LCM_FINGERPRINT;
+        return fingerprint == robotlocomotion.planar_lidar_t.LCM_FINGERPRINT;
     }
 
     class MyAction extends AbstractAction
@@ -52,7 +52,7 @@ public class PlanarLidarPlugin implements lcm.spy.SpyPlugin
 
     class LaserPane extends JPanel implements MouseWheelListener, MouseListener, MouseMotionListener, KeyListener
     {
-        bot_core.planar_lidar_t l;
+        robotlocomotion.planar_lidar_t l;
         double tx, ty;
         AffineTransform T ;
         ParameterGUI pg;
@@ -75,7 +75,7 @@ public class PlanarLidarPlugin implements lcm.spy.SpyPlugin
             return T.getScaleX();
         }
 
-        public void setData(bot_core.planar_lidar_t l)
+        public void setData(robotlocomotion.planar_lidar_t l)
         {
             this.l = l;
             repaint();
@@ -444,7 +444,7 @@ public class PlanarLidarPlugin implements lcm.spy.SpyPlugin
                 String channel, LCMDataInputStream ins)
         {
             try {
-                bot_core.planar_lidar_t pl = new bot_core.planar_lidar_t(ins);
+                robotlocomotion.planar_lidar_t pl = new robotlocomotion.planar_lidar_t(ins);
                 lp.setData(pl);
             } catch (IOException ex) {
                 System.out.println("ex: "+ex);

@@ -1,4 +1,4 @@
-package bot2_spy;
+package robotlocomotion_spy;
 
 import java.util.*;
 import java.awt.*;
@@ -13,14 +13,14 @@ import javax.swing.event.*;
 import lcm.spy.ChannelData;
 import lcm.lcm.LCMDataInputStream;
 
-import bot_core.image_t;
+import robotlocomotion.image_t;
 
-/** A plugin for viewing bot_core.image_t data **/
+/** A plugin for viewing robotlocomotion.image_t data **/
 public class ImagePlugin implements lcm.spy.SpyPlugin
 {
     public boolean canHandle(long fingerprint)
     {
-        return fingerprint == bot_core.image_t.LCM_FINGERPRINT;
+        return fingerprint == robotlocomotion.image_t.LCM_FINGERPRINT;
     }
 
     class MyAction extends AbstractAction
