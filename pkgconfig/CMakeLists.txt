@@ -1,13 +1,14 @@
-file(TO_CMAKE_PATH "${CMAKE_INSTALL_PREFIX}" BOT2_CORE_INSTALL_PREFIX)
+file(TO_CMAKE_PATH "${CMAKE_INSTALL_PREFIX}"
+  ROBOTLOCOMOTION-LCMTYPES_INSTALL_PREFIX)
 
-configure_file(lcmtypes_bot2-core.pc.in
-  ${bot2-core_BINARY_DIR}/lcmtypes_bot2-core.pc @ONLY)
-install(FILES ${bot2-core_BINARY_DIR}/lcmtypes_bot2-core.pc
+configure_file(${PROJECT_NAME}.pc.in
+  ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.pc @ONLY)
+install(FILES ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.pc
   DESTINATION lib${LIB_SUFFIX}/pkgconfig)
 
-if(TARGET lcmtypes_bot2-core)
-  configure_file(lcmtypes_bot2-core-java.pc.in
-    ${bot2-core_BINARY_DIR}/lcmtypes_bot2-core-java.pc @ONLY)
-  install(FILES ${bot2-core_BINARY_DIR}/lcmtypes_bot2-core-java.pc
+if(TARGET robotlocomotion-lcmtypes-jar)
+  configure_file(${PROJECT_NAME}-java.pc.in
+    ${PROJECT_BINARY_DIR}/${PROJECT_NAME}-java.pc @ONLY)
+  install(FILES ${PROJECT_BINARY_DIR}/${PROJECT_NAME}-java.pc
     DESTINATION lib${LIB_SUFFIX}/pkgconfig)
 endif()

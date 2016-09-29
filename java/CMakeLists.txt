@@ -12,16 +12,16 @@ message(STATUS "Found Java and lcm-java: building Java LCM-SPY plugins")
 include(UseJava)
 
 set(src_dir ${CMAKE_CURRENT_SOURCE_DIR}/src)
-set(jar_fname lcmspy_plugins_bot2.jar)
+set(jar_fname lcmspy_plugins_robotlocomotion.jar)
 
 set(java_sources
-  src/bot2_spy/ImagePlugin.java
-  src/bot2_spy/PlanarLidarPlugin.java
+  src/robotlocomotion_spy/ImagePlugin.java
+  src/robotlocomotion_spy/PlanarLidarPlugin.java
 )
 
-add_jar(lcmspy_plugins_bot2
-  INCLUDE_JARS lcm-java lcmtypes_bot2-core-jar
+add_jar(lcmspy_plugins_robotlocomotion
+  INCLUDE_JARS lcm-java robotlocomotion-lcmtypes-jar
   SOURCES ${java_sources}
 )
 
-install_jar(lcmspy_plugins_bot2 share/java)
+install_jar(lcmspy_plugins_robotlocomotion share/java)

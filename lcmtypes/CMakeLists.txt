@@ -24,54 +24,61 @@ lcm_wrap_types(
   CREATE_CPP_AGGREGATE_HEADER
   ${python_args}
   ${java_args}
-  bot_core_atlas_command_t.lcm
-  bot_core_force_torque_t.lcm
-  bot_core_gps_data_t.lcm
-  bot_core_gps_satellite_info_list_t.lcm
-  bot_core_gps_satellite_info_t.lcm
-  bot_core_image_metadata_t.lcm
-  bot_core_images_t.lcm
-  bot_core_image_sync_t.lcm
-  bot_core_image_t.lcm
-  bot_core_ins_t.lcm
-  bot_core_joint_angles_t.lcm
-  bot_core_joint_state_t.lcm
-  bot_core_kvh_raw_imu_batch_t.lcm
-  bot_core_kvh_raw_imu_t.lcm
-  bot_core_planar_lidar_t.lcm
-  bot_core_pointcloud2_t.lcm
-  bot_core_pointcloud_t.lcm
-  bot_core_pointfield_t.lcm
-  bot_core_pose_t.lcm
-  bot_core_position_3d_t.lcm
-  bot_core_quaternion_t.lcm
-  bot_core_raw_t.lcm
-  bot_core_rigid_transform_t.lcm
-  bot_core_robot_state_t.lcm
-  bot_core_robot_urdf_t.lcm
-  bot_core_sensor_status_t.lcm
-  bot_core_six_axis_force_torque_array_t.lcm
-  bot_core_six_axis_force_torque_t.lcm
-  bot_core_system_status_t.lcm
-  bot_core_twist_t.lcm
-  bot_core_utime_t.lcm
-  bot_core_vector_3d_t.lcm
-  bot_core_viewer_command_t.lcm
-  bot_core_viewer_draw_t.lcm
-  bot_core_viewer_geometry_data_t.lcm
-  bot_core_viewer_link_data_t.lcm
-  bot_core_viewer_load_robot_t.lcm
+  atlas_command_t.lcm
+  force_torque_t.lcm
+  gps_data_t.lcm
+  gps_satellite_info_list_t.lcm
+  gps_satellite_info_t.lcm
+  image_metadata_t.lcm
+  images_t.lcm
+  image_sync_t.lcm
+  image_t.lcm
+  ins_t.lcm
+  joint_angles_t.lcm
+  joint_state_t.lcm
+  kvh_raw_imu_batch_t.lcm
+  kvh_raw_imu_t.lcm
+  planar_lidar_t.lcm
+  pointcloud2_t.lcm
+  pointcloud_t.lcm
+  pointfield_t.lcm
+  pose_t.lcm
+  position_3d_t.lcm
+  quaternion_t.lcm
+  raw_t.lcm
+  rigid_transform_t.lcm
+  robot_state_t.lcm
+  robot_urdf_t.lcm
+  sensor_status_t.lcm
+  six_axis_force_torque_array_t.lcm
+  six_axis_force_torque_t.lcm
+  system_status_t.lcm
+  twist_t.lcm
+  utime_t.lcm
+  vector_3d_t.lcm
+  viewer_command_t.lcm
+  viewer_draw_t.lcm
+  viewer_geometry_data_t.lcm
+  viewer_link_data_t.lcm
+  viewer_load_robot_t.lcm
 )
 
-add_library(lcmtypes_bot2-core ${sources})
-target_link_libraries(lcmtypes_bot2-core lcm)
+add_library(robotlocomotion-lcmtypes ${sources})
+target_include_directories(robotlocomotion-lcmtypes INTERFACE
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>)
+target_link_libraries(robotlocomotion-lcmtypes lcm)
 
-install(FILES ${c_install_headers} DESTINATION include/lcmtypes)
-install(FILES ${cpp_install_headers} DESTINATION include/lcmtypes/bot_core)
+lcm_install_headers(
+  ${c_install_headers}
+  ${cpp_install_headers}
+  DESTINATION include/lcmtypes
+)
 
-add_library(lcmtypes_bot2-core-cpp INTERFACE)
+add_library(robotlocomotion-lcmtypes-cpp INTERFACE)
+target_include_directories(robotlocomotion-lcmtypes-cpp INTERFACE
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>)
 
-install(TARGETS lcmtypes_bot2-core lcmtypes_bot2-core-cpp
+install(TARGETS robotlocomotion-lcmtypes robotlocomotion-lcmtypes-cpp
   EXPORT ${PROJECT_NAME}Targets
   RUNTIME DESTINATION bin
   LIBRARY DESTINATION lib${LIB_SUFFIX}
@@ -86,25 +93,25 @@ endif()
 if(JAVA_FOUND)
   include(UseJava)
 
-  add_jar(lcmtypes_bot2-core-jar
-    OUTPUT_NAME lcmtypes_bot2-core
+  add_jar(robotlocomotion-lcmtypes-jar
+    OUTPUT_NAME robotlocomotion-lcmtypes
     INCLUDE_JARS lcm-java
     SOURCES ${java_sources}
   )
 
-  install_jar(lcmtypes_bot2-core-jar share/java)
+  install_jar(robotlocomotion-lcmtypes-jar share/java)
 
-  set(BOT2-CORE_INCLUDE_JAVA
-    "include(\${CMAKE_CURRENT_LIST_DIR}/bot2-coreJavaTargets.cmake)"
+  set(ROBOTLOCOMOTION-LCMTYPES_INCLUDE_JAVA
+    "include(\${CMAKE_CURRENT_LIST_DIR}/${PROJECT_NAME}JavaTargets.cmake)"
   )
   export_jars(
     FILE ${PROJECT_BINARY_DIR}/${PROJECT_NAME}JavaTargets.cmake
-    TARGETS lcmtypes_bot2-core-jar
+    TARGETS robotlocomotion-lcmtypes-jar
   )
   install_jar_exports(
     FILE ${PROJECT_NAME}JavaTargets.cmake
     DESTINATION ${CONFIG_INSTALL_DIR}
-    TARGETS lcmtypes_bot2-core-jar
+    TARGETS robotlocomotion-lcmtypes-jar
   )
 endif()
 
@@ -116,7 +123,7 @@ configure_package_config_file(
 
 # Exported targets for build directory
 export(
-  TARGETS lcmtypes_bot2-core
+  TARGETS robotlocomotion-lcmtypes robotlocomotion-lcmtypes-cpp
   FILE ${PROJECT_BINARY_DIR}/${PROJECT_NAME}Targets.cmake
 )
 
