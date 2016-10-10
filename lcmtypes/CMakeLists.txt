@@ -58,20 +58,19 @@ lcm_wrap_types(
   viewer_load_robot_t.lcm
 )
 
-add_library(robotlocomotion-lcmtypes ${c_sources})
+lcm_add_library(robotlocomotion-lcmtypes C ${c_sources} ${c_install_headers})
 target_include_directories(robotlocomotion-lcmtypes INTERFACE
   $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>)
-target_link_libraries(robotlocomotion-lcmtypes lcm)
+
+lcm_add_library(robotlocomotion-lcmtypes-cpp CPP ${cpp_install_headers})
+target_include_directories(robotlocomotion-lcmtypes-cpp INTERFACE
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>)
 
 lcm_install_headers(
   ${c_install_headers}
   ${cpp_install_headers}
   DESTINATION include/lcmtypes
 )
-
-add_library(robotlocomotion-lcmtypes-cpp INTERFACE)
-target_include_directories(robotlocomotion-lcmtypes-cpp INTERFACE
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>)
 
 install(TARGETS robotlocomotion-lcmtypes robotlocomotion-lcmtypes-cpp
   EXPORT ${PROJECT_NAME}Targets
