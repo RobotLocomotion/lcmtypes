@@ -12,6 +12,7 @@ if(JAVA_FOUND AND TARGET lcm-java)
 endif()
 
 lcm_wrap_types(
+  C_EXPORT robotlocomotion_lcmtypes
   C_SOURCES c_sources
   C_HEADERS c_install_headers
   CPP_HEADERS cpp_install_headers
@@ -59,6 +60,8 @@ lcm_wrap_types(
 )
 
 lcm_add_library(robotlocomotion-lcmtypes C ${c_sources} ${c_install_headers})
+generate_export_header(robotlocomotion-lcmtypes
+  BASE_NAME robotlocomotion_lcmtypes)
 target_include_directories(robotlocomotion-lcmtypes INTERFACE
   $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>)
 

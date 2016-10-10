@@ -2,12 +2,22 @@ project(robotlocomotion-lcmtypes)
 cmake_minimum_required(VERSION 3.1)
 
 include(CMakePackageConfigHelpers)
+include(GenerateExportHeader)
 
 find_package(PythonInterp)
 find_package(Java)
 
 if(JAVA_FOUND)
   include(UseJava)
+endif()
+
+# Enable ELF hidden visibility
+set(CMAKE_C_VISIBILITY_PRESET "hidden")
+set(CMAKE_CXX_VISIBILITY_PRESET "hidden")
+set(CMAKE_VISIBILITY_INLINES_HIDDEN 1)
+
+if(POLICY CMP0063)
+  cmake_policy(SET CMP0063 NEW)
 endif()
 
 # TODO remove when minimum CMake >= 3.7
