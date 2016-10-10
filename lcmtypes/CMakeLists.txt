@@ -1,8 +1,3 @@
-find_package(PythonInterp)
-find_package(Java)
-
-include(CMakePackageConfigHelpers)
-
 if(WIN32)
   set(CONFIG_INSTALL_DIR CMake)
 else()
