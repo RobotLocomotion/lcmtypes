@@ -7,7 +7,7 @@ endif()
 if(PYTHONINTERP_FOUND)
   set(python_args PYTHON_SOURCES python_install_sources)
 endif()
-if(JAVA_FOUND)
+if(JAVA_FOUND AND TARGET lcm-java)
   set(java_args JAVA_SOURCES java_sources)
 endif()
 
@@ -86,28 +86,30 @@ if(PYTHONINTERP_FOUND)
 endif()
 
 if(JAVA_FOUND)
-  include(UseJava)
+  if(NOT TARGET lcm-java)
+    message(STATUS "lcm-java not found: not building Java LCM type bindings")
+  else()
+    add_jar(robotlocomotion-lcmtypes-jar
+      OUTPUT_NAME robotlocomotion-lcmtypes
+      INCLUDE_JARS lcm-java
+      SOURCES ${java_sources}
+    )
 
-  add_jar(robotlocomotion-lcmtypes-jar
-    OUTPUT_NAME robotlocomotion-lcmtypes
-    INCLUDE_JARS lcm-java
-    SOURCES ${java_sources}
-  )
+    install_jar(robotlocomotion-lcmtypes-jar share/java)
 
-  install_jar(robotlocomotion-lcmtypes-jar share/java)
-
-  set(ROBOTLOCOMOTION-LCMTYPES_INCLUDE_JAVA
-    "include(\${CMAKE_CURRENT_LIST_DIR}/${PROJECT_NAME}JavaTargets.cmake)"
-  )
-  export_jars(
-    FILE ${PROJECT_BINARY_DIR}/${PROJECT_NAME}JavaTargets.cmake
-    TARGETS robotlocomotion-lcmtypes-jar
-  )
-  install_jar_exports(
-    FILE ${PROJECT_NAME}JavaTargets.cmake
-    DESTINATION ${CONFIG_INSTALL_DIR}
-    TARGETS robotlocomotion-lcmtypes-jar
-  )
+    set(ROBOTLOCOMOTION-LCMTYPES_INCLUDE_JAVA
+      "include(\${CMAKE_CURRENT_LIST_DIR}/${PROJECT_NAME}JavaTargets.cmake)"
+    )
+    export_jars(
+      FILE ${PROJECT_BINARY_DIR}/${PROJECT_NAME}JavaTargets.cmake
+      TARGETS robotlocomotion-lcmtypes-jar
+    )
+    install_jar_exports(
+      FILE ${PROJECT_NAME}JavaTargets.cmake
+      DESTINATION ${CONFIG_INSTALL_DIR}
+      TARGETS robotlocomotion-lcmtypes-jar
+    )
+  endif()
 endif()
 
 configure_package_config_file(
