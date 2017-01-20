@@ -29,6 +29,7 @@ lcm_wrap_types(
   support_body_t.lcm
   support_element_t.lcm
   support_sequence_t.lcm
+  viewer2_comms_t.lcm
   )
 
 
