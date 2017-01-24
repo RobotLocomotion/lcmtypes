@@ -1,7 +1,5 @@
 package robotlocomotion;
 
-// Full Combined Robot State
-// The velocity measurements are in inertial or local frame
 
 struct residual_observer_state_t
 {
