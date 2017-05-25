@@ -32,7 +32,7 @@ struct image_t {
   // The compression method.
   int8_t compression_method;
 
-  // enum for pixel_format. Add other formats as needed.
+  // enum for pixel_format.
   const int8_t PIXEL_FORMAT_GRAY       = 0;
   const int8_t PIXEL_FORMAT_RGB        = 1;
   const int8_t PIXEL_FORMAT_BGR        = 2;
@@ -48,7 +48,7 @@ struct image_t {
   const int8_t PIXEL_FORMAT_BAYER_GRBG = 12;
   const int8_t PIXEL_FORMAT_INVALID    = -1;
 
-  // enum for channel_type. Add other types as needed.
+  // enum for channel_type.
   const int8_t CHANNEL_TYPE_INT8    = 0;
   const int8_t CHANNEL_TYPE_UINT8   = 1;
   const int8_t CHANNEL_TYPE_INT16   = 2;
@@ -59,7 +59,7 @@ struct image_t {
   const int8_t CHANNEL_TYPE_FLOAT64 = 7;
   const int8_t CHANNEL_TYPE_INVALID = -1;
 
-  // enum for compression_method. Add other methods as needed.
+  // enum for compression_method.
   const int8_t COMPRESSION_METHOD_NOT_COMPRESSED = 0;
   const int8_t COMPRESSION_METHOD_ZLIB           = 1;
   const int8_t COMPRESSION_METHOD_JPEG           = 2;
